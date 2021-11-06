@@ -2,6 +2,8 @@ package com.ualr.recyclerviewassignment;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.ualr.recyclerviewassignment.Utils.DataGenerator;
+
 import android.os.Bundle;
 import android.view.View;
 
@@ -27,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void initComponent() {
         // TODO 01. Generate the item list to be displayed using the DataGenerator class
+
         // TODO 03. Do the setup of a new RecyclerView instance to display the item list properly
         // TODO 04. Define the layout of each item in the list
         // TODO 09. Create a new instance of the created Adapter class and bind it to the RecyclerView instance created in step 03
