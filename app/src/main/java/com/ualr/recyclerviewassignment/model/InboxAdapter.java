@@ -4,9 +4,15 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.ualr.recyclerviewassignment.R;
+import com.ualr.recyclerviewassignment.Utils.DataGenerator;
+
+import java.util.List;
 
 //TODO 11. Remove This https://guides.codepath.com/android/using-the-recyclerview thanks for the help
 public class InboxAdapter extends
@@ -19,16 +25,27 @@ public class InboxAdapter extends
         LayoutInflater inflater = LayoutInflater.from(context);
 
         // Inflate the custom layout
-        View contactView = inflater.inflate(R.layout.item_contact, parent, false);
+        View inboxView = inflater.inflate(R.layout.item_email, parent, false);
 
         // Return a new holder instance
-        ViewHolder viewHolder = new ViewHolder(contactView);
+        ViewHolder viewHolder = new ViewHolder(inboxView);
         return viewHolder;
     }
 
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+
+        // Get the data model based on position
+        Inbox inbox = mInbox.get(position);
+
+        // Set item views based on your views and data model
+        TextView nameText = holder.nameTextView;
+        nameText.setText(inbox.getFrom());
+        TextView addrText = holder.emailTextView;
+        addrText.setText(inbox.getEmail());
+        TextView msgText = holder.msgTextView;
+        msgText.setText(inbox.getMessage());
 
     }
 
@@ -53,9 +70,15 @@ public class InboxAdapter extends
             // to access the context from any ViewHolder instance.
             super(itemView);
 
-            nameTextView = (TextView) itemView.findViewById(R.id.contact_name);
-            emailTextView = (TextView) itemView.findViewById(R.id.emailAddr);
-            msgTextView = (TextView) itemView.findViewById(R.id.msgText);
+            nameTextView = (TextView) itemView.findViewById(R.id.nameTextView);
+            emailTextView = (TextView) itemView.findViewById(R.id.emailTextView);
+            msgTextView = (TextView) itemView.findViewById(R.id.msgTextView);
         }
+    }
+
+    private List<Inbox> mInbox;
+
+    public InboxAdapter(List<Inbox> inbox) {
+        mInbox = inbox;
     }
 }
