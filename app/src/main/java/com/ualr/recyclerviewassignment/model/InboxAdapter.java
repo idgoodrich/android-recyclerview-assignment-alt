@@ -30,7 +30,6 @@ public class InboxAdapter extends RecyclerView.Adapter<InboxAdapter.ViewHolder> 
         private final TextView emailTextView;
         private final TextView msgTextView;
         private final TextView dateTextView;
-        private final FloatingActionButton floatButton;
 
         public ViewHolder(View itemView){
             super(itemView);
@@ -39,7 +38,6 @@ public class InboxAdapter extends RecyclerView.Adapter<InboxAdapter.ViewHolder> 
             emailTextView = (TextView) itemView.findViewById(R.id.emailTextView);
             msgTextView = (TextView) itemView.findViewById(R.id.msgTextView);
             dateTextView = (TextView) itemView.findViewById(R.id.dateTextView);
-            floatButton = (FloatingActionButton) itemView.findViewById(R.id.floatingActionButton);
 
         }
 
@@ -51,7 +49,6 @@ public class InboxAdapter extends RecyclerView.Adapter<InboxAdapter.ViewHolder> 
 
         public TextView getDateTextView() { return dateTextView; }
 
-        public FloatingActionButton getFloatButton() { return floatButton; }
     }
 
     //initialize dataset
