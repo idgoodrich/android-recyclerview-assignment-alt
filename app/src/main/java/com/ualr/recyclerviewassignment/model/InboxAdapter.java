@@ -1,5 +1,8 @@
 package com.ualr.recyclerviewassignment.model;
 
+import com.ualr.recyclerviewassignment.Utils.DataGenerator;
+
+
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,7 +24,6 @@ public class InboxAdapter extends RecyclerView.Adapter<InboxAdapter.ViewHolder> 
     //declare list of inbox messages
     private List<Inbox> mInbox;
 
-
     public static class ViewHolder extends RecyclerView.ViewHolder{
         protected final TextView nameTextView;
         private final TextView emailTextView;
@@ -29,13 +31,6 @@ public class InboxAdapter extends RecyclerView.Adapter<InboxAdapter.ViewHolder> 
 
         public ViewHolder(View itemView){
             super(itemView);
-
-            /*v.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Log.d(TAG, "Element " + getAdapterPosition() + " clicked.");
-                }
-            });*/
 
             nameTextView = (TextView) itemView.findViewById(R.id.nameTextView);
             emailTextView = (TextView) itemView.findViewById(R.id.emailTextView);
@@ -73,9 +68,9 @@ public class InboxAdapter extends RecyclerView.Adapter<InboxAdapter.ViewHolder> 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
-        holder.getNameTextView().setText("HELP");
-        holder.getEmailTextView().setText("HELP");
-        holder.getMsgTextView().setText("HELP");
+        holder.getNameTextView().setText((mInbox.get(position)).getFrom());
+        holder.getEmailTextView().setText((mInbox.get(position)).getEmail());
+        holder.getMsgTextView().setText((mInbox.get(position)).getMessage());
 
 
 
