@@ -33,10 +33,11 @@
             android:clickable="true"
             app:backgroundTint="@color/blue_500"
             app:fabSize="normal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:rippleColor="@color/blue_900"
             app:srcCompat="@drawable/ic_add_circle_outline_24px"
-            tools:layout_editor_absoluteX="355dp"
-            tools:layout_editor_absoluteY="675dp" />
+            tools:layout_editor_absoluteX="355dp" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
