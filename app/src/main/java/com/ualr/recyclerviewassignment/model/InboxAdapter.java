@@ -1,5 +1,6 @@
 package com.ualr.recyclerviewassignment.model;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.ualr.recyclerviewassignment.Utils.DataGenerator;
 
 
@@ -28,6 +29,8 @@ public class InboxAdapter extends RecyclerView.Adapter<InboxAdapter.ViewHolder> 
         protected final TextView nameTextView;
         private final TextView emailTextView;
         private final TextView msgTextView;
+        private final TextView dateTextView;
+        private final FloatingActionButton floatButton;
 
         public ViewHolder(View itemView){
             super(itemView);
@@ -35,7 +38,8 @@ public class InboxAdapter extends RecyclerView.Adapter<InboxAdapter.ViewHolder> 
             nameTextView = (TextView) itemView.findViewById(R.id.nameTextView);
             emailTextView = (TextView) itemView.findViewById(R.id.emailTextView);
             msgTextView = (TextView) itemView.findViewById(R.id.msgTextView);
-
+            dateTextView = (TextView) itemView.findViewById(R.id.dateTextView);
+            floatButton = (FloatingActionButton) itemView.findViewById(R.id.floatingActionButton);
 
         }
 
@@ -44,6 +48,10 @@ public class InboxAdapter extends RecyclerView.Adapter<InboxAdapter.ViewHolder> 
         public TextView getEmailTextView() { return emailTextView; }
 
         public TextView getMsgTextView() { return msgTextView; }
+
+        public TextView getDateTextView() { return dateTextView; }
+
+        public FloatingActionButton getFloatButton() { return floatButton; }
     }
 
     //initialize dataset
@@ -71,7 +79,7 @@ public class InboxAdapter extends RecyclerView.Adapter<InboxAdapter.ViewHolder> 
         holder.getNameTextView().setText((mInbox.get(position)).getFrom());
         holder.getEmailTextView().setText((mInbox.get(position)).getEmail());
         holder.getMsgTextView().setText((mInbox.get(position)).getMessage());
-
+        holder.getDateTextView().setText((mInbox.get(position)).getDate());
 
 
     }
@@ -80,5 +88,6 @@ public class InboxAdapter extends RecyclerView.Adapter<InboxAdapter.ViewHolder> 
     public int getItemCount() {
         return mInbox.size();
     }
+
 
 }

@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.ualr.recyclerviewassignment.Utils.DataGenerator;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 
@@ -37,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
     private void initComponent() {
         //I still dont understand how DataGenerator is supposed to work
         // TODO 01. Generate the item list to be displayed using the DataGenerator class
-        DataGenerator.getRandomInboxItem(this);
+        //DataGenerator.getRandomInboxItem(this);
         List<Inbox> emails = DataGenerator.getInboxData(this);
 
         //set recyclerView
@@ -61,6 +62,10 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 // TODO 10. Invoke the method created to a new item to the top of the list so it's
                 //  triggered when the user taps the Floating Action Button
+                emails.add(0, DataGenerator.getRandomInboxItem(getApplicationContext()));
+
+                adapter.notifyDataSetChanged();
+
             }
         });
     }
