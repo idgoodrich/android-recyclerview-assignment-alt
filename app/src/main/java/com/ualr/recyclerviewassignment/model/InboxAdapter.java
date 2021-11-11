@@ -24,7 +24,6 @@ public class InboxAdapter extends RecyclerView.Adapter<InboxAdapter.ViewHolder> 
 
     //declare list of inbox messages
     private List<Inbox> mInbox;
-    int inboxPositon = 0;
 
     public static class ViewHolder extends RecyclerView.ViewHolder{
         protected final TextView nameTextView;
@@ -33,8 +32,17 @@ public class InboxAdapter extends RecyclerView.Adapter<InboxAdapter.ViewHolder> 
         private final TextView dateTextView;
         private final TextView circleTextView;
 
+        public boolean isClicked = false;
+
         public ViewHolder(View itemView){
             super(itemView);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    isClicked = !isClicked;
+                }
+            });
 
 
             nameTextView = (TextView) itemView.findViewById(R.id.nameTextView);
@@ -55,6 +63,8 @@ public class InboxAdapter extends RecyclerView.Adapter<InboxAdapter.ViewHolder> 
         public TextView getDateTextView() { return dateTextView; }
 
         public TextView getCircleTextView() { return circleTextView; }
+
+        public boolean getIsClicked() { return isClicked; }
     }
 
     //initialize dataset
@@ -79,12 +89,17 @@ public class InboxAdapter extends RecyclerView.Adapter<InboxAdapter.ViewHolder> 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
-        inboxPositon = position;
         holder.getNameTextView().setText((mInbox.get(position)).getFrom());
         holder.getEmailTextView().setText((mInbox.get(position)).getEmail());
         holder.getMsgTextView().setText((mInbox.get(position)).getMessage());
         holder.getDateTextView().setText((mInbox.get(position)).getDate());
         holder.getCircleTextView().setText( ((mInbox.get(position)).getFrom()).substring(0,1) );
+
+        if(holder.getIsClicked()){
+            holder.getCircleTextView().setText("X");
+        }
+
+
 
     }
 
@@ -97,7 +112,5 @@ public class InboxAdapter extends RecyclerView.Adapter<InboxAdapter.ViewHolder> 
     public int getItemCount() {
         return mInbox.size();
     }
-
-
 
 }
