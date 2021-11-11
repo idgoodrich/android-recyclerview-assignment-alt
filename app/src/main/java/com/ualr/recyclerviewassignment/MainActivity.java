@@ -53,9 +53,6 @@ public class MainActivity extends AppCompatActivity {
         rvEmail.setLayoutManager(new LinearLayoutManager(this));
 
 
-
-
-
         mFAB = findViewById(R.id.fab);
         mFAB.setOnClickListener(new View.OnClickListener() {
             @Override

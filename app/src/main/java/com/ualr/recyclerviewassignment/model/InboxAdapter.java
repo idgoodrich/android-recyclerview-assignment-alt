@@ -97,6 +97,11 @@ public class InboxAdapter extends RecyclerView.Adapter<InboxAdapter.ViewHolder> 
 
         if(holder.getIsClicked()){
             holder.getCircleTextView().setText("X");
+            mInbox.get(position).setSelected(true);
+        }
+        else{
+            holder.getCircleTextView().setText( ((mInbox.get(position)).getFrom()).substring(0,1) );
+            mInbox.get(position).setSelected(false);
         }
 
 
@@ -112,5 +117,7 @@ public class InboxAdapter extends RecyclerView.Adapter<InboxAdapter.ViewHolder> 
     public int getItemCount() {
         return mInbox.size();
     }
+
+    
 
 }
