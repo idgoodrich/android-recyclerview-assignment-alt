@@ -24,20 +24,25 @@ public class InboxAdapter extends RecyclerView.Adapter<InboxAdapter.ViewHolder> 
 
     //declare list of inbox messages
     private List<Inbox> mInbox;
+    int inboxPositon = 0;
 
     public static class ViewHolder extends RecyclerView.ViewHolder{
         protected final TextView nameTextView;
         private final TextView emailTextView;
         private final TextView msgTextView;
         private final TextView dateTextView;
+        private final TextView circleTextView;
 
         public ViewHolder(View itemView){
             super(itemView);
+
 
             nameTextView = (TextView) itemView.findViewById(R.id.nameTextView);
             emailTextView = (TextView) itemView.findViewById(R.id.emailTextView);
             msgTextView = (TextView) itemView.findViewById(R.id.msgTextView);
             dateTextView = (TextView) itemView.findViewById(R.id.dateTextView);
+            circleTextView = (TextView) itemView.findViewById(R.id.circleTextView);
+
 
         }
 
@@ -49,6 +54,7 @@ public class InboxAdapter extends RecyclerView.Adapter<InboxAdapter.ViewHolder> 
 
         public TextView getDateTextView() { return dateTextView; }
 
+        public TextView getCircleTextView() { return circleTextView; }
     }
 
     //initialize dataset
@@ -73,18 +79,25 @@ public class InboxAdapter extends RecyclerView.Adapter<InboxAdapter.ViewHolder> 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
+        inboxPositon = position;
         holder.getNameTextView().setText((mInbox.get(position)).getFrom());
         holder.getEmailTextView().setText((mInbox.get(position)).getEmail());
         holder.getMsgTextView().setText((mInbox.get(position)).getMessage());
         holder.getDateTextView().setText((mInbox.get(position)).getDate());
+        holder.getCircleTextView().setText( ((mInbox.get(position)).getFrom()).substring(0,1) );
 
+    }
 
+    public Inbox getInbox(int position){
+
+        return mInbox.get(position);
     }
 
     @Override
     public int getItemCount() {
         return mInbox.size();
     }
+
 
 
 }
