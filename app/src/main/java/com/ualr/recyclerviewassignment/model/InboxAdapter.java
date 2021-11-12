@@ -4,6 +4,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.ualr.recyclerviewassignment.Utils.DataGenerator;
 
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ualr.recyclerviewassignment.R;
@@ -25,12 +28,15 @@ public class InboxAdapter extends RecyclerView.Adapter<InboxAdapter.ViewHolder> 
     //declare list of inbox messages
     private List<Inbox> mInbox;
 
-    public static class ViewHolder extends RecyclerView.ViewHolder{
+    private int layoutNum = 0;
+
+    public class ViewHolder extends RecyclerView.ViewHolder{
         protected final TextView nameTextView;
         private final TextView emailTextView;
         private final TextView msgTextView;
         private final TextView dateTextView;
         private final TextView circleTextView;
+        private final CardView itemCard;
 
         public boolean isClicked = false;
 
@@ -40,7 +46,8 @@ public class InboxAdapter extends RecyclerView.Adapter<InboxAdapter.ViewHolder> 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    isClicked = !isClicked;
+                    mInbox.get(getLayoutPosition()).toggleSelection();
+                    notifyDataSetChanged();
                 }
             });
 
@@ -50,6 +57,7 @@ public class InboxAdapter extends RecyclerView.Adapter<InboxAdapter.ViewHolder> 
             msgTextView = (TextView) itemView.findViewById(R.id.msgTextView);
             dateTextView = (TextView) itemView.findViewById(R.id.dateTextView);
             circleTextView = (TextView) itemView.findViewById(R.id.circleTextView);
+            itemCard = (CardView) itemView.findViewById(R.id.itemCard);
 
 
         }
@@ -86,8 +94,11 @@ public class InboxAdapter extends RecyclerView.Adapter<InboxAdapter.ViewHolder> 
     }
 
 
+    @SuppressLint("ResourceAsColor") //it crashed if i did what it told me to
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+
+        layoutNum = position;
 
         holder.getNameTextView().setText((mInbox.get(position)).getFrom());
         holder.getEmailTextView().setText((mInbox.get(position)).getEmail());
@@ -95,29 +106,34 @@ public class InboxAdapter extends RecyclerView.Adapter<InboxAdapter.ViewHolder> 
         holder.getDateTextView().setText((mInbox.get(position)).getDate());
         holder.getCircleTextView().setText( ((mInbox.get(position)).getFrom()).substring(0,1) );
 
-        if(holder.getIsClicked()){
+        if(mInbox.get(position).isSelected()){
             holder.getCircleTextView().setText("X");
-            mInbox.get(position).setSelected(true);
+            holder.itemCard.setCardBackgroundColor(R.color.grey_3);
+            mInbox.remove(position);
         }
-        else{
-            holder.getCircleTextView().setText( ((mInbox.get(position)).getFrom()).substring(0,1) );
-            mInbox.get(position).setSelected(false);
-        }
+
 
 
 
     }
 
-    public Inbox getInbox(int position){
-
-        return mInbox.get(position);
-    }
 
     @Override
     public int getItemCount() {
         return mInbox.size();
     }
 
-    
+
+    //i need this to run when i tap the X
+    public void deleteSelected(TextView textView){
+        if(textView.getText() == "X"){
+
+            mInbox.remove(layoutNum);
+
+        }
+
+
+    }
+
 
 }
