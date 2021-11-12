@@ -23,12 +23,11 @@ import org.w3c.dom.Text;
 
 import java.util.List;
 
+//new adapter class for to-do 5
 public class InboxAdapter extends RecyclerView.Adapter<InboxAdapter.ViewHolder> {
 
     //declare list of inbox messages
     private List<Inbox> mInbox;
-
-    private int layoutNum = 0;
 
     public class ViewHolder extends RecyclerView.ViewHolder{
         protected final TextView nameTextView;
@@ -42,7 +41,7 @@ public class InboxAdapter extends RecyclerView.Adapter<InboxAdapter.ViewHolder> 
 
         public ViewHolder(View itemView){
             super(itemView);
-
+            //detects click events on the items and updates the layout
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -59,6 +58,21 @@ public class InboxAdapter extends RecyclerView.Adapter<InboxAdapter.ViewHolder> 
             circleTextView = (TextView) itemView.findViewById(R.id.circleTextView);
             itemCard = (CardView) itemView.findViewById(R.id.itemCard);
 
+            //deletes items if they are selected and the button is clicked
+            circleTextView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                        if(mInbox.get(getLayoutPosition()).isSelected()){
+
+                            mInbox.remove(getLayoutPosition());
+
+                            notifyDataSetChanged();
+
+
+                    }
+                }
+            });
+
 
         }
 
@@ -71,8 +85,6 @@ public class InboxAdapter extends RecyclerView.Adapter<InboxAdapter.ViewHolder> 
         public TextView getDateTextView() { return dateTextView; }
 
         public TextView getCircleTextView() { return circleTextView; }
-
-        public boolean getIsClicked() { return isClicked; }
     }
 
     //initialize dataset
@@ -98,18 +110,17 @@ public class InboxAdapter extends RecyclerView.Adapter<InboxAdapter.ViewHolder> 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
-        layoutNum = position;
-
         holder.getNameTextView().setText((mInbox.get(position)).getFrom());
         holder.getEmailTextView().setText((mInbox.get(position)).getEmail());
         holder.getMsgTextView().setText((mInbox.get(position)).getMessage());
         holder.getDateTextView().setText((mInbox.get(position)).getDate());
         holder.getCircleTextView().setText( ((mInbox.get(position)).getFrom()).substring(0,1) );
 
+        //Set item to X if selected and change the background color of the card to notify is selected
         if(mInbox.get(position).isSelected()){
             holder.getCircleTextView().setText("X");
             holder.itemCard.setCardBackgroundColor(R.color.grey_3);
-            mInbox.remove(position);
+
         }
 
 
@@ -123,17 +134,6 @@ public class InboxAdapter extends RecyclerView.Adapter<InboxAdapter.ViewHolder> 
         return mInbox.size();
     }
 
-
-    //i need this to run when i tap the X
-    public void deleteSelected(TextView textView){
-        if(textView.getText() == "X"){
-
-            mInbox.remove(layoutNum);
-
-        }
-
-
-    }
 
 
 }
